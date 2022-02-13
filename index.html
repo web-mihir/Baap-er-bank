@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Tailwind CDN -->
+   <script src="https://cdn.tailwindcss.com"></script>
+   <title>Baap er hotel</title>
+</head>
+
+<body>
+   <header>
+      <h1 class="text-center text-5xl mt-16">Welcome to my
+         <span class="font-semibold text-purple-600">Baap er
+            Bank
+         </span>
+      </h1>
+   </header>
+   <main>
+      <section class="bg-sky-500/100 w-3/4 mx-auto mt-8 flex flex-col justify-center items-center p-8 rounded">
+         <h3 class="text-2xl mb-4">Please Login</h3>
+         <div class="text-center flex flex-col w-2/5 justify-center items-center">
+            <input id="user-email" class="p-1 mb-4 rounded w-full" type="text" placeholder="Your email">
+            <input id="user-pwd" class="p-1 mb-4 rounded w-full" type="password" placeholder="password">
+            <button class="bg-yellow-500/100 px-4 py-2 text-white rounded" id="login-submit">Submit</button>
+         </div>
+      </section>
+   </main>
+   <script src="js/login.js"></script>
+</body>
+
+</html>
