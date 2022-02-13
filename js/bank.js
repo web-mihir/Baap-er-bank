@@ -1,45 +1,65 @@
 // Deposit function
 document.getElementById('dep-btn').addEventListener('click', function () {
-   const depositeInputValue = document.getElementById('dep-field');
-   const newDepositValue = depositeInputValue.value;
-   const newDeposit = parseFloat(newDepositValue);
+   let inpValue = getInputValue('dep-field');
 
    const totalDeposit = document.getElementById('total-deposit');
-   const oldDeposit = totalDeposit.innerText;
-   const oldDepositAmount = parseFloat(oldDeposit);
+   let oldVal = getOldValue('total-deposit');
 
-   const newDepositAmount = oldDepositAmount + newDeposit;
-   totalDeposit.innerText = newDepositAmount;
+   let currBalance = getCurrentBalance();
 
-   // Update balance
-   const totalBalanceDiv = document.getElementById('total-balance');
-   const totalBalanceValue = totalBalanceDiv.innerText;
-   let totalBalance = parseFloat(totalBalanceValue);
-   let finalDepositBalance = totalBalance + newDeposit;
-
-   totalBalanceDiv.innerText = finalDepositBalance;
+   if (inpValue > 0) {
+      const newDepositAmount = oldVal + inpValue;
+      totalDeposit.innerText = newDepositAmount;
+      updateBalance(currBalance, inpValue, true);
+   } else {
+      alert("Negative value are not allowed");
+   }
 });
 
 // withdraw function
 document.getElementById('withdraw-btn').addEventListener("click", function () {
-   const withdrawInputField = document.getElementById("withdraw-field");
-   const withdrawInputValue = withdrawInputField.value;
-   const newWithdraw = parseFloat(withdrawInputValue);
+   let inpValue = getInputValue("withdraw-field");
 
    const totalWithdrawDiv = document.getElementById('total-withdraw');
-   const totalWithdrawVal = totalWithdrawDiv.innerText;
-   const oldWithdraw = parseFloat(totalWithdrawVal);
+   let oldValue = getOldValue('total-withdraw');
 
-   const totalWithdraw = oldWithdraw + newWithdraw;
-   totalWithdrawDiv.innerText = totalWithdraw;
+   let currBalance = getCurrentBalance();
 
-   updateBalance(newWithdraw);
+   if (inpValue < 0) {
+      alert("Negative value are not allowed");
+   } else if (inpValue > currBalance) {
+      alert("You cann't withdraw money");
+   } else {
+      const totalWithdraw = oldValue + inpValue;
+      totalWithdrawDiv.innerText = totalWithdraw;
+      updateBalance(currBalance, inpValue, false);
+   }
 });
 
-function updateBalance (balance) {
-   const totalBalanceDiv = document.getElementById('total-balance');
-   const totalBalanceValue = totalBalanceDiv.innerText;
-   let totalBalance = parseFloat(totalBalanceValue);
-   let finalDepositBalance = totalBalance - balance;
-   totalBalanceDiv.innerText = finalDepositBalance;
+function getInputValue(inputId) {
+   let inpId = document.getElementById(inputId);
+   let val = inpId.value;
+   inpId.value = '';
+   return parseFloat(val);
+}
+
+function getOldValue(oldValueId) {
+   let oldValId = document.getElementById(oldValueId);
+   oldValId = oldValId.innerText;
+   return parseFloat(oldValId);
+}
+
+function updateBalance(currentBalance, balance, isAdd) {
+   let totalBalance = document.getElementById('total-balance');
+   if (isAdd === true) {
+      totalBalance.innerText = currentBalance + balance;
+   } else {
+      totalBalance.innerText = currentBalance - balance;
+   }
+}
+
+function getCurrentBalance() {
+   let totalBalance = document.getElementById('total-balance');
+   let val = totalBalance.innerText;
+   return parseFloat(val);
 }
